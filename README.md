@@ -13,25 +13,54 @@ npx cap sync
 
 <docgen-index>
 
-* [`echo(...)`](#echo)
+* [`listProducts(...)`](#listproducts)
+* [`purchaseProduct(...)`](#purchaseproduct)
+* [Interfaces](#interfaces)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### echo(...)
+### listProducts(...)
 
 ```typescript
-echo(options: { value: string; }) => Promise<{ value: string; }>
+listProducts(options: { productIdentifiers: string[]; }) => Promise<{ products: Product[]; }>
 ```
 
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
+| Param         | Type                                           |
+| ------------- | ---------------------------------------------- |
+| **`options`** | <code>{ productIdentifiers: string[]; }</code> |
 
-**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+**Returns:** <code>Promise&lt;{ products: Product[]; }&gt;</code>
 
 --------------------
+
+
+### purchaseProduct(...)
+
+```typescript
+purchaseProduct(product: Product) => Promise<void>
+```
+
+| Param         | Type                                        |
+| ------------- | ------------------------------------------- |
+| **`product`** | <code><a href="#product">Product</a></code> |
+
+--------------------
+
+
+### Interfaces
+
+
+#### Product
+
+| Prop              | Type                | Description                       |
+| ----------------- | ------------------- | --------------------------------- |
+| **`identifier`**  | <code>string</code> |                                   |
+| **`priceString`** | <code>string</code> | Locale formatted price ex `$3.99` |
+| **`price`**       | <code>number</code> | ex. `3.99`                        |
+| **`description`** | <code>string</code> |                                   |
+| **`name`**        | <code>string</code> |                                   |
 
 </docgen-api>
