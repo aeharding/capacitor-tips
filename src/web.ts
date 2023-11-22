@@ -1,10 +1,15 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { CapacitorTipsPlugin } from './definitions';
+import type { CapacitorTipsPlugin, Product } from './definitions';
 
 export class CapacitorTipsWeb extends WebPlugin implements CapacitorTipsPlugin {
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  async listProducts(): Promise<{ products: Product[] }> {
+    // Implement the listProducts logic here or use `unimplemented` if not implemented
+    throw this.unimplemented('In-app purchases not available on web');
+  }
+
+  async purchaseProduct(): Promise<void> {
+    // Implement the purchaseProduct logic here or use `unimplemented` if not implemented
+    throw this.unimplemented('In-app purchases not available on web');
   }
 }
