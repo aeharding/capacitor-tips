@@ -224,6 +224,7 @@ public class CapacitorTipsPlugin extends Plugin implements PurchasesUpdatedListe
                 .build();
 
         billingClient.consumeAsync(consumeParams, (billingResult, s) -> {
+            Log.d(getLogTag(), "Purchase consumed");
         });
     }
 }
