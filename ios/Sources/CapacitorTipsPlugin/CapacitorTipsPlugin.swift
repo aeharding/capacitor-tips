@@ -7,7 +7,13 @@ import Foundation
 import StoreKit
 
 @objc(CapacitorTipsPlugin)
-public class CapacitorTipsPlugin: CAPPlugin, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+public class CapacitorTipsPlugin: CAPPlugin, SKProductsRequestDelegate, SKPaymentTransactionObserver, CAPBridgedPlugin {
+    public let identifier = "CapacitorTipsPlugin" 
+    public let jsName = "CapacitorTips" 
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "listProducts", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "purchaseProduct", returnType: CAPPluginReturnPromise),
+    ] 
   var productsRequest: SKProductsRequest?
   var productsCallback: CAPPluginCall?
 
