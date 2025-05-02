@@ -50,6 +50,7 @@ public class CapacitorTipsPlugin: CAPPlugin, SKProductsRequestDelegate, SKPaymen
         "identifier": product.productIdentifier,
         "priceString": priceString,
         "price": product.price,
+        "currencyCode": product.priceLocale.currencyCode ?? "",
         "description": product.localizedDescription,
         "name": product.localizedTitle
       ])

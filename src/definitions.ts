@@ -1,7 +1,5 @@
 export interface CapacitorTipsPlugin {
-  listProducts(options: {
-    productIdentifiers: string[];
-  }): Promise<{ products: Product[] }>;
+  listProducts(options: { productIdentifiers: string[] }): Promise<{ products: Product[] }>;
   purchaseProduct(product: Product): Promise<void>;
 }
 
@@ -19,6 +17,11 @@ export interface Product {
    * ex. `3.99`
    */
   price: number;
+
+  /**
+   * ex. `USD`
+   */
+  currencyCode: string;
 
   description: string;
   name: string;

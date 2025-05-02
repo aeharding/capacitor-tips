@@ -115,6 +115,7 @@ public class CapacitorTipsPlugin extends Plugin implements PurchasesUpdatedListe
                     product.put("identifier", details.getProductId());
                     product.put("priceString", details.getOneTimePurchaseOfferDetails().getFormattedPrice());
                     product.put("price", details.getOneTimePurchaseOfferDetails().getPriceAmountMicros() / 1000000.0); // Convert to dollars
+                    product.put("currencyCode", details.getOneTimePurchaseOfferDetails().getPriceCurrencyCode());
                     product.put("description", details.getDescription());
                     product.put("name", details.getTitle());
 

@@ -55,12 +55,13 @@ purchaseProduct(product: Product) => Promise<void>
 
 #### Product
 
-| Prop              | Type                | Description                       |
-| ----------------- | ------------------- | --------------------------------- |
-| **`identifier`**  | <code>string</code> |                                   |
-| **`priceString`** | <code>string</code> | Locale formatted price ex `$3.99` |
-| **`price`**       | <code>number</code> | ex. `3.99`                        |
-| **`description`** | <code>string</code> |                                   |
-| **`name`**        | <code>string</code> |                                   |
+| Prop               | Type                | Description                       |
+| ------------------ | ------------------- | --------------------------------- |
+| **`identifier`**   | <code>string</code> |                                   |
+| **`priceString`**  | <code>string</code> | Locale formatted price ex `$3.99` |
+| **`price`**        | <code>number</code> | ex. `3.99`                        |
+| **`currencyCode`** | <code>string</code> | ex. `USD`                         |
+| **`description`**  | <code>string</code> |                                   |
+| **`name`**         | <code>string</code> |                                   |
 
 </docgen-api>
