@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.ConsumeParams;
+import com.android.billingclient.api.PendingPurchasesParams;
 import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.QueryProductDetailsParams;
 import com.getcapacitor.JSObject;
@@ -42,7 +43,7 @@ public class CapacitorTipsPlugin extends Plugin implements PurchasesUpdatedListe
     private void initializeBillingClient() {
         billingClient = BillingClient.newBuilder(getContext())
                 .setListener(this)
-                .enablePendingPurchases()
+                .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
                 .build();
 
         billingClient.startConnection(new BillingClientStateListener() {
@@ -77,9 +78,9 @@ public class CapacitorTipsPlugin extends Plugin implements PurchasesUpdatedListe
 
         QueryProductDetailsParams.Builder paramsBuilder = QueryProductDetailsParams.newBuilder().setProductList(products);
 
-        billingClient.queryProductDetailsAsync(paramsBuilder.build(), (billingResult, productDetailsList) -> {
-            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && productDetailsList != null) {
-                listener.onProductDetailsSuccess(productDetailsList);
+        billingClient.queryProductDetailsAsync(paramsBuilder.build(), (billingResult, productDetailsListResult) -> {
+            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                listener.onProductDetailsSuccess(productDetailsListResult.getProductDetailsList());
             } else {
                 listener.onProductDetailsFailure();
             }
@@ -111,11 +112,16 @@ public class CapacitorTipsPlugin extends Plugin implements PurchasesUpdatedListe
                 var jsonProducts = new JSONArray();
 
                 for (ProductDetails details : productDetailsList) {
+                    var offerDetails = details.getOneTimePurchaseOfferDetails();
+
+                    if (offerDetails == null) continue;
+
                     JSObject product = new JSObject();
+
                     product.put("identifier", details.getProductId());
-                    product.put("priceString", details.getOneTimePurchaseOfferDetails().getFormattedPrice());
-                    product.put("price", details.getOneTimePurchaseOfferDetails().getPriceAmountMicros() / 1000000.0); // Convert to dollars
-                    product.put("currencyCode", details.getOneTimePurchaseOfferDetails().getPriceCurrencyCode());
+                    product.put("priceString", offerDetails.getFormattedPrice());
+                    product.put("price", offerDetails.getPriceAmountMicros() / 1000000.0); // Convert to dollars
+                    product.put("currencyCode", offerDetails.getPriceCurrencyCode());
                     product.put("description", details.getDescription());
                     product.put("name", details.getTitle());
 
